@@ -1,0 +1,90 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.weather-app {
+    background-image: url('../images/weather-bg.jpeg');
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, .075);
+    background-size: cover;
+    background-position: bottom;
+    padding: 15px 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    color: #fff;
+}
+
+h1 {
+    line-height: 28px;
+    margin-block: 2rem 1rem;
+}
+
+.search {
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+    outline: none;
+    border: none;
+}
+
+.search-btn,
+.current-btn {
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    line-height: 2rem;
+    padding:4px;
+}
+
+.current-btn{
+    background-color: #000000;
+    color: #fff;
+}
+.current-btn:focus{
+    outline: none;
+}
+
+ul li {
+    list-style: none;
+    margin: 0;
+}
+.today-weather{
+    margin: 0.5rem auto;
+    align-items: center;
+}
+.temp{
+    font-size:64px;
+}
+.unit{
+    position: relative;
+    top: -30px;
+    font-size: 24px;
+}
+.icon-today{
+    width: 80px;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 2rem;
+    background: #e7e0e073;
+    border-radius: 3px;
+    margin-top: 4rem;
+    padding-block:0.75rem;
+}
+.days__block{
+    text-align: center;
+}
+
+
+@media only screen and (max-width:468px){
+    .search-btn,
+    .current-btn{
+        display: block;
+        width: 70%;
+        margin:0.5rem auto;
+    }
+    .search{
+        margin-bottom: 2rem;
+    }
+}
