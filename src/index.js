@@ -36,7 +36,9 @@ function showDate(date) {
 function searchWeather(location) {
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?&appid=${apiKey}&units=metric`;
   axios.get(weatherUrl + "&" + location).then((response) => {
-    date.innerHTML = showDate(new Date());
+        setInterval(()=>{
+      date.innerHTML = showDate(new Date());
+    },1000);
     place.innerHTML = response.data.name;
     weatherCondition.innerHTML = response.data.weather[0].main;
     temperature.innerHTML = Math.round(response.data.main.temp);
