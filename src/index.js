@@ -125,4 +125,26 @@ currentBtn.addEventListener("click", function () {
     );
   });
 });
+//-------Converting celsius to Fahrenheit-------//
+function convertFahrenheit(event) {
+  event.preventDefault();
+  celsiusBtn.classList.remove("active");
+  fahrenheitBtn.classList.add("active");
+  let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperature.innerHTML = Math.round(fahrenheiTemperature);
+}
+
+function convertCelsius(event) {
+  event.preventDefault();
+  celsiusBtn.classList.add("active");
+  fahrenheitBtn.classList.remove("active");
+  temperature.innerHTML = Math.round(celsiusTemperature);
+}
+
+let fahrenheitBtn = document.querySelector("#fahrenheit-temp");
+fahrenheitBtn.addEventListener("click", convertFahrenheit);
+
+let celsiusBtn = document.querySelector("#celsius-temp");
+celsiusBtn.addEventListener("click", convertCelsius);
+
 searchWeather("q=tehran")
