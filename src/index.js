@@ -106,7 +106,7 @@ function searchWeather(location) {
     //     ".png"
     // );
   });
-
+}
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   let city = searchInput.value;
@@ -125,4 +125,4 @@ currentBtn.addEventListener("click", function () {
     );
   });
 });
-searchWeather("q=tehran");
+searchWeather("q=tehran")
