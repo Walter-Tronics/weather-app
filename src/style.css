@@ -55,15 +55,23 @@ ul{
 .temp{
     font-size:64px;
 }
-.unit{
+.units{
     position: relative;
     top: -30px;
+    left: 0.75rem;
     font-size: 24px;
 }
 .icon-today{
     width: 80px;
 }
-
+.units .active{
+    color: #ffffff;
+    padding-right: 0.5rem;
+}
+.units a{
+    color: #000000;
+    text-decoration: none;
+}
 .days {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
