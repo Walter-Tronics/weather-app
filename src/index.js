@@ -94,7 +94,8 @@ function searchWeather(location) {
     date.innerHTML = showDate(new Date(cityOffset));
     place.innerHTML = response.data.name;
     weatherCondition.innerHTML = response.data.weather[0].main;
-    temperature.innerHTML = Math.round(response.data.main.temp);
+    celsiusTemperature = response.data.main.temp;
+    temperature.innerHTML = Math.round(celsiusTemperature);
     wind.innerHTML = Math.round(response.data.wind.speed);
     precipitation.innerHTML = Math.round(response.data.main.humidity);
     getForecast(response.data.coord);
