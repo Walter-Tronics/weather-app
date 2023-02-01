@@ -1,5 +1,5 @@
 let date = document.querySelector("#date");
-let days = document.querySelectorAll(".days__block");
+let forecastElements = document.querySelector("#weather-forecast");
 let weatherCondition = document.querySelector("#condition");
 let iconToday = document.querySelector(".icon-today");
 let place = document.querySelector("#city");
@@ -9,17 +9,26 @@ let wind = document.querySelector("#wind");
 let form = document.querySelector(".search-form");
 let searchInput = document.querySelector("#search-input");
 
-let root = "https://api.openweathermap.org";
-let apiKey = "22983ce8635ace03932912e7b2f13972";
+let apiKey = "7746bdeabca928cfedcad71e52fd9d66";
 
 function showDay(dayNumber) {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+ let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   return days[dayNumber];
 }
 
-function showMinutes(minutes) {
+function timeCycle(minutes, hours) {
   if (minutes < 10) {
     return "0" + minutes;
+  } else if (hours < 12) {
+    return "0" + hours;
   } else {
     return minutes;
   }
@@ -27,10 +36,51 @@ function showMinutes(minutes) {
 
 function showDate(date) {
   let day = showDay(date.getDay());
-  let hours = date.getHours();
-  let minutes = showMinutes(date.getMinutes());
+  let hours = timeCycle(date.getHours());
+  let minutes = timeCycle(date.getMinutes());
 
   return `${day} ${hours} : ${minutes}`;
+}
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastHTML = "";
+  forecast.forEach((forecastDay, index) => {
+    if (index < 6) {
+      forecastHTML += `  
+        <div class="days__block">
+        <div class="block-date">${formatDay(forecastDay.dt)}</div>
+        <img src="http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png"
+          class="block-image" alt="" width="42">
+        <div class="block-temps">
+          <span class="temperature-max"> ${Math.round(
+            forecastDay.temp.max
+          )}° </span>
+        <span class="temperature-min"> ${Math.round(
+          forecastDay.temp.min
+        )}° </span>
+    </div>
+    </div>`;
+    }
+  });
+
+  forecastElements.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  // console.log(coordinates);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude=minutely,hourly,alerts&appid=${apiKey}&units=metric`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function searchWeather(location) {
@@ -47,6 +97,8 @@ function searchWeather(location) {
     temperature.innerHTML = Math.round(response.data.main.temp);
     wind.innerHTML = Math.round(response.data.wind.speed);
     precipitation.innerHTML = Math.round(response.data.main.humidity);
+    getForecast(response.data.coord);
+    
     // iconToday.setAttribute(
     //   "src",
     //   "http://openweathermap.org/img/w/" +
@@ -54,24 +106,6 @@ function searchWeather(location) {
     //     ".png"
     // );
   });
-  let forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?&appid=${apiKey}&units=metric`;
-  axios.get(forecastUrl + "&" + location).then((response) => {
-    days.forEach((element, index) => {
-      let day = new Date(response.data.list[index].dt_txt);
-      element.querySelector(".block-date").innerHTML = showDate(day);
-      element.querySelector(".block-temp").innerHTML =
-        Math.round(response.data.list[index].main.temp) + " ° ";
-      element
-        .querySelector(".block-image")
-        .setAttribute(
-          "src",
-          "http://openweathermap.org/img/w/" +
-            response.data.list[index].weather[0].icon +
-            ".png"
-        );
-    });
-  });
-}
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
