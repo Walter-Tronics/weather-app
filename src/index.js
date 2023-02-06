@@ -94,7 +94,7 @@ function searchWeather(location) {
       const currentUtcTime = localOffset + localTime;
       const timeZone = response.data.timezone;
       const cityOffset = currentUtcTime + 1000 * timeZone;
-      date.innerHTML = showDate(new Date(times));
+      date.innerHTML = showDate(new Date(cityOffset));
       //Push to the city time array
     //   city_times.push(cityOffset);
     //   if(count>1) city_times.shift();
