@@ -97,7 +97,7 @@ function searchWeather(location) {
     wind.innerHTML = Math.round(response.data.wind.speed);
     precipitation.innerHTML = Math.round(response.data.main.humidity);
     getForecast(response.data.coord);
-   iconToday.setAttribute("src", `icons/${response.data.weather[0].icon}.svg`);
+   iconToday.setAttribute("src", `./icons/${response.data.weather[0].icon}.svg`);
   });
 }
 form.addEventListener("submit", (event) => {
