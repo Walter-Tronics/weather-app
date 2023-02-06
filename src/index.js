@@ -59,9 +59,7 @@ function displayForecast(response) {
       forecastHTML += `  
         <div class="days__block">
         <div class="block-date">${formatDay(forecastDay.dt)}</div>
-        <img src="http://openweathermap.org/img/wn/${
-          forecastDay.weather[0].icon
-        }@2x.png"
+        <img src="icons/${forecastDay.weather[0].icon}.svg"
           class="block-image" alt="" width="42">
         <div class="block-temps">
           <span class="temperature-max"> ${Math.round(
@@ -109,26 +107,7 @@ function searchWeather(location) {
     wind.innerHTML = Math.round(response.data.wind.speed);
     precipitation.innerHTML = Math.round(response.data.main.humidity);
     getForecast(response.data.coord);
-    
-    // iconToday.setAttribute(
-    //   "src",
-    //   "http://openweathermap.org/img/w/" +
-    //     response.data.weather[0].icon +
-    //     ".png"
-    // );
-
-    // setInterval(()=>{
-    //   const colors = ['red', 'green', 'blue', 'yellow'];
-    //   let picked = colors[Math.floor(Math.random() * colors.length)];
-    //   console.log(picked);
-    //   document.querySelector('body').style.background = picked;
-    //   //console.log(showDate(new Date(cityOffset)));
-    //   let times = city_times[city_times.length-1];
-    //   console.log(times,city_times);
-    //   return date.innerHTML = showDate(new Date(times));
-    //   //console.log(showDate(new Date(times)));
-    // },1000);
-
+   iconToday.setAttribute("src", `./icons/${response.data.weather[0].icon}.svg`);
   });
 }
 form.addEventListener("submit", (event) => {
