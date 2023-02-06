@@ -57,7 +57,7 @@ function displayForecast(response) {
       forecastHTML += `  
         <div class="days__block">
         <div class="block-date">${formatDay(forecastDay.dt)}</div>
-        <img src=icons/${forecastDay.weather[0].icon}.svg"
+        <img src="icons/${forecastDay.weather[0].icon}.svg"
           class="block-image" alt="" width="42">
         <div class="block-temps">
           <span class="temperature-max"> ${Math.round(
