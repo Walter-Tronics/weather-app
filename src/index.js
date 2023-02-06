@@ -8,6 +8,7 @@ let precipitation = document.querySelector("#precipitation");
 let wind = document.querySelector("#wind");
 let form = document.querySelector(".search-form");
 let searchInput = document.querySelector("#search-input");
+//let city_times = [];
 
 let apiKey = "7746bdeabca928cfedcad71e52fd9d66";
 
@@ -41,6 +42,7 @@ function showDate(date) {
 
   return `${day} ${hours} : ${minutes}`;
 }
+
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
@@ -86,12 +88,20 @@ function getForecast(coordinates) {
 function searchWeather(location) {
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?&appid=${apiKey}&units=metric`;
   axios.get(weatherUrl + "&" + location).then((response) => {
-    const localOffset = new Date().getTimezoneOffset() * 60000;
-    const localTime = new Date().getTime();
-    const currentUtcTime = localOffset + localTime;
-    const timeZone = response.data.timezone;
-    const cityOffset = currentUtcTime + 1000 * timeZone;
-    date.innerHTML = showDate(new Date(cityOffset));
+    // let count = 0;
+    // setInterval(()=>{
+    //   count++;
+      const localOffset = new Date().getTimezoneOffset() * 60000;
+      const localTime = new Date().getTime();
+      const currentUtcTime = localOffset + localTime;
+      const timeZone = response.data.timezone;
+      const cityOffset = currentUtcTime + 1000 * timeZone;
+      date.innerHTML = showDate(new Date(times));
+      //Push to the city time array
+    //   city_times.push(cityOffset);
+    //   if(count>1) city_times.shift();
+    // },1000)
+    //date.innerHTML = showDate(new Date(cityOffset));
     place.innerHTML = response.data.name;
     weatherCondition.innerHTML = response.data.weather[0].main;
     celsiusTemperature = response.data.main.temp;
@@ -106,6 +116,19 @@ function searchWeather(location) {
     //     response.data.weather[0].icon +
     //     ".png"
     // );
+
+    // setInterval(()=>{
+    //   const colors = ['red', 'green', 'blue', 'yellow'];
+    //   let picked = colors[Math.floor(Math.random() * colors.length)];
+    //   console.log(picked);
+    //   document.querySelector('body').style.background = picked;
+    //   //console.log(showDate(new Date(cityOffset)));
+    //   let times = city_times[city_times.length-1];
+    //   console.log(times,city_times);
+    //   return date.innerHTML = showDate(new Date(times));
+    //   //console.log(showDate(new Date(times)));
+    // },1000);
+
   });
 }
 form.addEventListener("submit", (event) => {
@@ -148,4 +171,4 @@ fahrenheitBtn.addEventListener("click", convertFahrenheit);
 let celsiusBtn = document.querySelector("#celsius-temp");
 celsiusBtn.addEventListener("click", convertCelsius);
 
-searchWeather("q=tehran")
+searchWeather("q=tehran");
