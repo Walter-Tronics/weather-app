@@ -43,6 +43,10 @@ h1 {
     outline: none;
 }
 
+.current-location{
+    padding-right: 0.45rem;
+}
+
 ul{
     list-style: none;
     margin: 0;
