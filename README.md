@@ -2,4 +2,4 @@
 * Html and CSS 
 * Bootstrap v 5.2
 * JavaScript
-## Author: Fatemeh Karemei
+## Author: Fatemeh Kamarei
